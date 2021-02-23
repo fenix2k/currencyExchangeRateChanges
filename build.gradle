@@ -1,0 +1,92 @@
+buildscript {
+	repositories {
+		jcenter()
+	}
+	dependencies {
+		classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
+	}
+}
+
+plugins {
+	id 'org.springframework.boot' version '2.4.3'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+apply plugin: 'java'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+group = 'ru.fenix2k'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('springCloudVersion', "2020.0.1")
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	compileOnly 'org.projectlombok:lombok:1.18.16'
+	annotationProcessor 'org.projectlombok:lombok:1.18.16'
+	testCompileOnly 'org.projectlombok:lombok:1.18.16'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
+
+	implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.0'
+	implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.0'
+	testImplementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.14.0'
+
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+	implementation group: 'io.github.openfeign', name: 'feign-gson', version: '11.0'
+	implementation group: 'io.github.openfeign', name: 'feign-slf4j', version: '11.0'
+
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.4.3'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+test {
+	useJUnitPlatform()
+}
+
+configurations {
+	all {
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	}
+}
+
+jar {
+	manifest {
+		attributes "Main-Class": "ru.fenix2k.currencyExchangeRateChanges.Application"
+	}
+
+	from {
+		configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+	enabled=true
+}
+
+task customFatJar(type: Jar) {
+	manifest {
+		attributes 'Main-Class': 'ru.fenix2k.currencyExchangeRateChanges.Application'
+	}
+	baseName = 'all-in-one-jar'
+	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+	with jar
+}
+
+springBoot {
+	mainClass = 'ru.fenix2k.currencyExchangeRateChanges.Application'
+}
+
+

@@ -1,0 +1,28 @@
+feign:
+  client:
+    config:
+      currencyClient:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+      gifClient:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+      gifFileClient:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+
+currencyClient:
+  #api_url: http://localhost:8080/fakeapi/
+  api_url: https://openexchangerates.org/api/
+  api_id: 10a27244eebc4ac89df6ab88fad13ede
+  base_currency: RUB
+  base_currency_freeacc: USD
+
+gifClient:
+  api_url: https://api.giphy.com/v1/gifs/
+  api_id: Ty1QaL42rUfjmACg6fQGzNQWBVRI22tE
+  increase_search_tag: rich
+  decrease_search_tag: broke

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Currencies Exchange Rate Info</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/main.css}"/>
+    <script th:src="@{/main.js}"></script>
+</head>
+<body>
+    <p>Узнать соотношение именения курса рубля (RUB) по отношению к выбранной валюте</p>
+    <div>
+        <div style="padding-bottom: 4pt">Выберите вылюту из списка:</div>
+        <div style="padding-bottom: 4pt">
+            <select id="currency">
+                <option th:each="item : ${currencies}"
+                        th:value="${item.key}"
+                        th:text="${item.key} + ' - ' + ${item.value}"
+                ></option>
+            </select>
+        </div>
+        <div style="padding-bottom: 4pt">
+            <button onclick="submit()">Узнать</button>
+        </div>
+        <div id="status" style="display: none; padding-bottom: 4pt"></div>
+        <div id="result" style="display: none">
+            <p>Результат:</p>
+            <span id="result-text"></span>
+            <img id="result-img">
+        </div>
+    </div>
+</body>
+</html>
