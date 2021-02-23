@@ -18,13 +18,18 @@
 
 ### Сборка и запуск
 ```
-git clone 
+git clone https://github.com/fenix2k/currencyExchangeRateChanges.git
+
+# Запуск тестов
+gradle test --info
+
+# Запуск сервиса
 gradle bootRun
 ```
 
 ### Запуск в Docker
 ```
-
+./docker-run.sh
 ```
 
 ### Использование

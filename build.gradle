@@ -1,12 +1,3 @@
-buildscript {
-	repositories {
-		jcenter()
-	}
-	dependencies {
-		classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
-	}
-}
-
 plugins {
 	id 'org.springframework.boot' version '2.4.3'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
@@ -14,10 +5,9 @@ plugins {
 }
 
 apply plugin: 'java'
-apply plugin: 'com.github.johnrengelman.shadow'
 
 group = 'ru.fenix2k'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 sourceCompatibility = '11'
 
 repositories {
@@ -74,19 +64,6 @@ jar {
 		configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
 	}
 	enabled=true
-}
-
-task customFatJar(type: Jar) {
-	manifest {
-		attributes 'Main-Class': 'ru.fenix2k.currencyExchangeRateChanges.Application'
-	}
-	baseName = 'all-in-one-jar'
-	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-	with jar
-}
-
-springBoot {
-	mainClass = 'ru.fenix2k.currencyExchangeRateChanges.Application'
 }
 
 
