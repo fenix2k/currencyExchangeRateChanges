@@ -5,7 +5,8 @@
 то сервис вернёт случайную GIF c https://giphy.com/search/rich,
 если ниже, то вернёт случайную GIF c https://giphy.com/search/broke
 
-Для получения курсов валют используется сервис https://openexchangerates.org/\
+Для получения курсов валют используется сервис https://openexchangerates.org/
+
 Для получения картинок https://giphy.com/
 
 Сервис построен на:
@@ -18,6 +19,7 @@
 
 ### Сборка и запуск
 ```
+# Github репозиторий
 git clone https://github.com/fenix2k/currencyExchangeRateChanges.git
 
 # Запуск тестов
@@ -27,7 +29,7 @@ gradle test --info
 gradle bootRun
 ```
 
-### Запуск в Docker
+### Запуск в Docker контейнере
 ```
 ./docker-run.sh
 ```
@@ -39,7 +41,7 @@ http://localhost:8080/
 
 или
 
-# REST HTTP GET запрос
+# HTTP GET запрос
 http://localhost:8080/start/<имя валюты>
 ```
 
